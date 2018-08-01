@@ -1,0 +1,51 @@
+>>> comments = response.xpath('//div[@class="comments-section"]/ul/li/div[@class="comment"]')
+>>> comments
+[<Selector xpath='//div[@class="comments-section"]/ul/li/div[@class="comment"]' data='<div class="comment" id="comment_1894673'>, <Selector xpath='//div[@class="comments-section"]/ul/li/div[@class="comment"]' data='<div class="comment" id="comment_1894674'>, <Selector xpath='//div[@class="comments-section"]/ul/li/div[@class="comment"]' data='<div class="comment" id="comment_1894680'>, <Selector xpath='//div[@class="comments-section"]/ul/li/div[@class="comment"]' data='<div class="comment" id="comment_1894685'>, <Selector xpath='//div[@class="comments-section"]/ul/li/div[@class="comment"]' data='<div class="comment" id="comment_1894709'>, <Selector xpath='//div[@class="comments-section"]/ul/li/div[@class="comment"]' data='<div class="comment" id="comment_1894739'>, <Selector xpath='//div[@class="comments-section"]/ul/li/div[@class="comment"]' data='<div class="comment" id="comment_1894753'>, <Selector xpath='//div[@class="comments-section"]/ul/li/div[@class="comment"]' data='<div class="comment" id="comment_1894778'>]
+>>> main_comments = [[i.xpath('.//div[@class="comment__head   "]/a/@data-user-login'), i.xpath('.//div[@class="comment__message "]/text())] for i in comments]
+  File "<console>", line 1
+    main_comments = [[i.xpath('.//div[@class="comment__head   "]/a/@data-user-login'), i.xpath('.//div[@class="comment__message "]/text())] for i in comments]
+                                                                                                                                                             ^
+SyntaxError: EOL while scanning string literal
+>>> main_comments = [[i.xpath('.//div[@class="comment__head   "]/a/@data-user-login'), i.xpath('.//div[@class="comment__message "]/text()')] for i in comments]
+>>> main_comments
+[[[<Selector xpath='.//div[@class="comment__head   "]/a/@data-user-login' data='ogoNEKto'>], []], [[<Selector xpath='.//div[@class="comment__head   "]/a/@data-user-login' data='Protos'>], [<Selector xpath='.//div[@class="comment__message "]/text()' data='Было бы круто если бы ваш сервис работал'>]], [[<Selector xpath='.//div[@class="comment__head   "]/a/@data-user-login' data='F376'>], [<Selector xpath='.//div[@class="comment__message "]/text()' data='\r\n'>, <Selector xpath='.//div[@class="comment__message "]/text()' data='\r\nНе исключено что это так и задумывалос'>]], [[<Selector xpath='.//div[@class="comment__head   "]/a/@data-user-login' data='BiTHacK'>], [<Selector xpath='.//div[@class="comment__message "]/text()' data='Чем закончилась история с Tizen?'>]], [[<Selector xpath='.//div[@class="comment__head   "]/a/@data-user-login' data='magnimus'>], [<Selector xpath='.//div[@class="comment__message "]/text()' data='по поводу проверки после выделения памят'>, <Selector xpath='.//div[@class="comment__message "]/text()' data='\r\nдля олд-скульных С пересевших на С++, '>, <Selector xpath='.//div[@class="comment__message "]/text()' data='\r\nА С++, привыкшие к new, скорее всего п'>, <Selector xpath='.//div[@class="comment__message "]/text()' data='\r\nЭто всё потому что люди пишут на несущ'>]], [[<Selector xpath='.//div[@class="comment__head   "]/a/@data-user-login' data='CycaHuH'>], [<Selector xpath='.//div[@class="comment__message "]/text()' data='\r\nДумаю так правильнее, т.к. mode скорее'>, <Selector xpath='.//div[@class="comment__message "]/text()' data='\r\n'>]], [[<Selector xpath='.//div[@class="comment__head   "]/a/@data-user-login' data='SergeyMax'>], [<Selector xpath='.//div[@class="comment__message "]/text()' data='\r\nСкоро компиляторы научатся определять,'>]], [[<Selector xpath='.//div[@class="comment__head   "]/a/@data-user-login' data='slavae'>], [<Selector xpath='.//div[@class="comment__message "]/text()' data='Интересно, а код pvs-студии прогоняли че'>]]]
+>>> main_comments = [[i.xpath('.//div[@class="comment__head   "]/a/@data-user-login').extract(), i.xpath('.//div[@class="comment__message "]/text()').extract()] for i in comments]
+>>> main_comments
+[[['ogoNEKto'], []], [['Protos'], ['Было бы круто если бы ваш сервис работал над всем кодом в публичном Github и репродукции всем владельцам репозиториев, но увы )']], [['F376'], ['\r\n', '\r\nНе исключено что это так и задумывалось, программист хотел избежать использования goto.']], [['BiTHacK'], ['Чем закончилась история с Tizen?']], [['magnimus'], ['по поводу проверки после выделения памяти. всё обьясняется просто:', '\r\nдля олд-скульных С пересевших на С++, использовали malloc-free и перенесли проверку на выделение уже в С++ new.', '\r\nА С++, привыкшие к new, скорее всего придерживались уже устоявшегося malloc-free в старых модулях, ну и не заморачиваются с проверками.', '\r\nЭто всё потому что люди пишут на несуществующем языке С/С++ вместо С или С++.']], [['CycaHuH'], ['\r\nДумаю так правильнее, т.к. mode скорее всего может содержать дополнительные флаги, вроде O_NOFOLLOW', '\r\n']], [['SergeyMax'], ['\r\nСкоро компиляторы научатся определять, какие программы не будут использоваться. Для начала перестанут компилировать «Hello, world».']], [['slavae'], ['Интересно, а код pvs-студии прогоняли через неё же? )']]]
+>>> main_comments = [[i.xpath('.//div[@class="comment__head   "]/a/@data-user-login').extract(), i.xpath('.//div[@class="comment__message "]//text()').extract()] for i in comments]
+>>> main_comments
+[[['ogoNEKto'], ['Ну вот, пофиксят все баги по подсказке из статьи и бета тестерам в Гугл урежут ЗП… ']], [['Protos'], ['Было бы круто если бы ваш сервис работал над всем кодом в публичном Github и репродукции всем владельцам репозиториев, но увы )']], [['F376'], ['do {\n  ....\n  if (x) continue;\n  ....\n} while (0)', '\r\n', '\r\nНе исключено что это так и задумывалось, программист хотел избежать использования goto.']], [['BiTHacK'], ['Чем закончилась история с Tizen?']], [['magnimus'], ['по поводу проверки после выделения памяти. всё обьясняется просто:', '\r\nдля олд-скульных С пересевших на С++, использовали malloc-free и перенесли проверку на выделение уже в С++ new.', '\r\nА С++, привыкшие к new, скорее всего придерживались уже устоявшегося malloc-free в старых модулях, ну и не заморачиваются с проверками.', '\r\nЭто всё потому что люди пишут на несуществующем языке С/С++ вместо С или С++.']], [['CycaHuH'], ['Правильная проверка должна быть такой:', 'if (f->mode == O_RDONLY && expect_zeros) {', '\r\nДумаю так правильнее, т.к. mode скорее всего может содержать дополнительные флаги, вроде O_NOFOLLOW', '\r\n', 'if (f->mode & O_RDONLY == O_RDONLY && expect_zeros) {']], [['SergeyMax'], ['компилятор вправе удалить вызов функции memset, если после этого буфер больше не используется', '\r\nСкоро компиляторы научатся определять, какие программы не будут использоваться. Для начала перестанут компилировать «Hello, world».']], [['slavae'], ['Интересно, а код pvs-студии прогоняли через неё же? )']]]
+>>> for i in main_comments:
+...     for j in i:
+...             j[1].strip()
+...
+Traceback (most recent call last):
+  File "<console>", line 3, in <module>
+IndexError: list index out of range
+>>> for i in main_comments:
+...     i[1].strip()
+...
+Traceback (most recent call last):
+  File "<console>", line 2, in <module>
+AttributeError: 'list' object has no attribute 'strip'
+>>> for i in main_comments:
+...     for j in i:
+...             j[0].strip()
+...
+'ogoNEKto'
+'Ну вот, пофиксят все баги по подсказке из статьи и бета тестерам в Гугл урежут ЗП…'
+'Protos'
+'Было бы круто если бы ваш сервис работал над всем кодом в публичном Github и репродукции всем владельцам репозиториев, но увы )'
+'F376'
+'do {\n  ....\n  if (x) continue;\n  ....\n} while (0)'
+'BiTHacK'
+'Чем закончилась история с Tizen?'
+'magnimus'
+'по поводу проверки после выделения памяти. всё обьясняется просто:'
+'CycaHuH'
+'Правильная проверка должна быть такой:'
+'SergeyMax'
+'компилятор вправе удалить вызов функции memset, если после этого буфер больше не используется'
+'slavae'
+'Интересно, а код pvs-студии прогоняли через неё же? )'
+
